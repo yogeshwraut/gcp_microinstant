@@ -5,6 +5,7 @@ services:
 
   portainer:
     image: portainer/portainer
+    container_name: portainer
     command: -H unix:///var/run/docker.sock
     restart: always
     ports:
@@ -12,37 +13,63 @@ services:
     volumes:
       - portainer_data:/var/lib/docker/volumes
       - /var/run/docker.sock:/var/run/docker.sock
+      
 #--------------------------------------------------------------------------
-
-   
-
-#--------------------------------------------------------------------------
+  
   wordpress:
+    depends_on:
+        - mysql
     image: wordpress:latest
+    container_name: wordpress
     restart: always
     ports:
-        - 8080:80
+        - 8000:80
     environment:
-      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_HOST: mysql:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+    networks:
+      - wpsite
     volumes:
       - wordpress:/var/www/html
+      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+
 #-------------------------------------------------------------------------
+  
   mysql:
-    image: mysql:5.7
+    image: mysql:latest
+    container_name: mysql
     restart: always
     environment:
-        MYSQL_DATABASE: wordpress
         MYSQL_USER: wordpress
         MYSQL_PASSWORD: wordpress
-        MYSQL_RANDOM_ROOT_PASSWORD: wordpress
-
+        MYSQL_ROOT_PASSWORD: wordpress
+        MYSQL_DATABASE: wordpress
+    networks:
+       - wpsite
     volumes:
       - mysql:/var/lib/mysql
+
 #-------------------------------------------------------------------------
 
+  phpmyadmin:
+    depends_on:
+        - mysql
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment:
+    PMA_HOST: mysql
+    MYSQL_ROOT_PASSWORD: wordpress
+    PMA_PORT: 3306
+    PMA_ARBITRARY: 1
+    ports:
+      - 8080:80
+    networks:
+     - wpsite
+
+#------------------------------------------------------------------------
 volumes:
   wordpress:
   mysql:

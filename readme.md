@@ -7,8 +7,6 @@ cd ~/gcp_microinstant
 
 docker-compose pull && docker-compose up -d
 
-        #docker-compose pull && docker-compose -f docker-compose.yml up -d
-
 #---------------------------------------------------------------------------------------------------------
 
 if want to remove directory then

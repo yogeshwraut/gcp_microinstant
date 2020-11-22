@@ -13,9 +13,13 @@ docker-compose pull && docker-compose up -d
 
 if want to remove directory then
 
+cd ~/gcp_microinstant
+
 docker-compose stop
 
-docker-compose rm -f
+docker-compose down --rmi local
+
+docker-compose rm -s -v -a -f
 
 cd
 
@@ -32,4 +36,3 @@ cd
         volumes:
           - ./logs/nginx/:/var/log/nginx
 
-          

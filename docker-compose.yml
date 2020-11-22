@@ -8,7 +8,7 @@ services:
     command: -H unix:///var/run/docker.sock
     restart: always
     ports:
-      - 749
+       - 4000
     volumes:
       - portainer_data:/var/lib/docker/volumes
       - /var/run/docker.sock:/var/run/docker.sock
@@ -17,9 +17,9 @@ services:
     image: wordpress:latest
     restart: always
     ports:
-      - 631
+      - 5000
     environment:
-      WORDPRESS_DB_HOST: mysql:542
+      WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
@@ -30,10 +30,10 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_DATABASE_PASSWORD}
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+        YSQL_DATABASE: wordpress
+        MYSQL_USER: wordpress
+        MYSQL_PASSWORD: wordpress
+        MYSQL_RANDOM_ROOT_PASSWORD: wordpress
 
     volumes:
       - mysql:/var/lib/mysql
@@ -43,4 +43,3 @@ volumes:
   wordpress:
   mysql:
   portainer_data:
-

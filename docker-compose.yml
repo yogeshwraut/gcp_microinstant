@@ -39,10 +39,10 @@ services:
         container_name: phpmyadmin
         restart: always
         environment:
-        PMA_HOST: mysql
-        MYSQL_ROOT_PASSWORD: wordpress
-        PMA_PORT: 3306
-        PMA_ARBITRARY: 1
+            PMA_HOST: mysql
+            MYSQL_ROOT_PASSWORD: wordpress
+            PMA_PORT: 3306
+            PMA_ARBITRARY: 1
         ports:
             - 8080:80
         networks:
@@ -53,6 +53,7 @@ services:
     wordpress:
         depends_on:
             - mysql
+            - phpmyadmin
         image: wordpress:latest
         container_name: wordpress
         restart: always

@@ -9,7 +9,7 @@ docker-compose pull && docker-compose up -d
 
         #docker-compose pull && docker-compose -f docker-compose.yml up -d
 
-docker-compose up -d
+#---------------------------------------------------------------------------------------------------------
 
 if want to remove directory then
 
@@ -21,3 +21,15 @@ cd
 
  rm -rf ~/gcp_microinstant
 
+#----------------------------------------------------------------------------------------------------------
+
+ nginx:
+        build: nginx
+        ports:
+          - "80:80"
+        volumes_from:
+          - application
+        volumes:
+          - ./logs/nginx/:/var/log/nginx
+
+          

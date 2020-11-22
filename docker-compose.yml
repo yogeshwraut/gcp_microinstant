@@ -19,7 +19,7 @@ services:
     ports:
       - 631
     environment:
-      WORDPRESS_DB_HOST: db:542
+      WORDPRESS_DB_HOST: mysql:542
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress

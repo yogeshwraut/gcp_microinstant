@@ -7,4 +7,7 @@ cd ~/gcp_microinstant
 
 docker-compose up -d
 
+if want to remove directory then
+
+ rm -rf ~/gcp_microinstant
 

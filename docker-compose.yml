@@ -9,12 +9,9 @@ services:
         ports:
             - "8080:80"
             - "443:443"
-        environment:
-            - NGINX_HOST: outofgayan.com
-            - NGINX_PORT: 80
         volumes:
             - ./:/var/www
-            - ./nginx/conf.d/:/etc/nginx/conf.d/
+            - ./nginx/conf.d/:/etc/nginx/nginx.conf
 
 
     mysql:
